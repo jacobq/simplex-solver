@@ -1,6 +1,0 @@
-/*******************************
-     User Global Variables
-*******************************/
-
-@imagePath : '/lib/semantic-ui/src/themes/default/assets/images';
-@fontPath  : '/lib/semantic-ui/src/themes/default/assets/fonts';
