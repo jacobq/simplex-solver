@@ -1,6 +1,6 @@
-import * as _ from 'lodash';
 import { expect } from 'chai';
 import {
+    equationToString,
     normalize,
     parse,
     toMaximizations,
@@ -8,6 +8,15 @@ import {
 
 
 describe('Equation', function() {
+
+  describe('equationToString', function() {
+    it('should behave as an inverse to parse', function () {
+      const original = 'x + 7 = -y + 2z + q';
+      const equation = parse(original);
+      const result = equationToString(equation);
+      expect(result).to.eql(original);
+    });
+  });
 
   describe('normalize', function() {
     it('should move all terms to the left-hand-side', function () {

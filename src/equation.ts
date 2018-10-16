@@ -1,7 +1,18 @@
 import * as _ from 'lodash';
 const operators = ['>=', '<=', '='];
 
-function parseVariable(text) {
+export interface Variable {
+  coefficient: number;
+  name: string;
+}
+
+export interface Equation {
+  lhs: Array<Variable|number>;
+  rhs: Array<Variable|number>;
+  operator: string;
+}
+
+function parseVariable(text) : Variable {
   const regex = /([.0-9]*)([a-zA-Z][a-zA-Z0-9]*)/;
   const result = text.match(regex);
   if (result) return {
@@ -26,6 +37,37 @@ function cloneEquation(equation) {
     rhs: cloneSide(equation.rhs)
   }
 }
+
+
+/**
+ * Takes an equation object and displays is as a string (i.e. inverse of parse)
+ */
+export function equationToString(eq: Equation) {
+
+  const expand = (v: Variable) => {
+    if (typeof v === 'number') {
+      return v;
+    }
+    else if (v.coefficient === 1) {
+      return v.name;
+    }
+    else if (v.coefficient === -1) {
+      return `-${v.name}`;
+    }
+    else {
+      return `${v.coefficient}${v.name}`;
+    }
+  };
+  const expressionsToString = e => e.map(expand)
+      .join(' + ')
+      .replace(/\+\s*-/g, '- ');
+
+  const lhs = expressionsToString(eq.lhs);
+  const rhs = expressionsToString(eq.rhs);
+
+  return `${lhs} ${eq.operator} ${rhs}`
+}
+
 
 // Flip the equation on its side
 function flip(equation) {
