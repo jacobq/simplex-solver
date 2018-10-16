@@ -89,7 +89,7 @@ describe('Simplex', function() {
       '3x + 2y + z <= 10',
       '2x + 5y + 3z <= 15'
     ]);
-    // logResult(result);
+    logResult(result);
     expect(result.x).to.eql(0);
     expect(result.y).to.eql(0);
     expect(result.z).to.eql(5);

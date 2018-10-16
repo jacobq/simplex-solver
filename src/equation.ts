@@ -90,21 +90,21 @@ export function toMaximizations(equation) {
     return [equation];
   } else if (equation.operator == '>=') {
     const clone = cloneEquation(equation);
-    flip(clone)
+    flip(clone);
     return [clone];
   } else if (equation.operator == '=') {
     const lessThan = cloneEquation(equation);
     lessThan.operator = '<=';
     const greaterThan = cloneEquation(equation);
     greaterThan.operator = '>=';
-    flip(greaterThan)
+    flip(greaterThan);
     return [lessThan, greaterThan];
   }
 }
 
 // Put all variables on the left and constants on the right
 export function normalize(equation) {
-  // Move variable form rhs to lhs
+  // Move variable from rhs to lhs
   equation.rhs = _.reduce(equation.rhs, function(rhs, part) {
     if (part.name) equation.lhs.push({name: part.name, coefficient: -part.coefficient});
     else rhs.push(part);
